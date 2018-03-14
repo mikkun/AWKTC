@@ -1,0 +1,47 @@
+# The subject line
+
+# The body of a commit message.
+
+# Resolves: #123
+
+# Git commit message template to use Emoji Prefix
+# ===============================================
+#
+# Consider starting the commit message with an applicable emoji:
+# --------------------------------------------------------------
+#
+# Source: https://github.com/atom/atom/blob/master/CONTRIBUTING.md
+#
+# * 🎨 :art: when improving the format/structure of the code
+# * 🐎 :racehorse: when improving performance
+# * 🚱 :non-potable_water: when plugging memory leaks
+# * 📝 :memo: when writing docs
+# * 🐧 :penguin: when fixing something on Linux
+# * 🍎 :apple: when fixing something on macOS
+# * 🏁 :checkered_flag: when fixing something on Windows
+# * 🐛 :bug: when fixing a bug
+# * 🔥 :fire: when removing code or files
+# * 💚 :green_heart: when fixing the CI build
+# * ✅ :white_check_mark: when adding tests
+# * ♻ :recycle: when refactoring (or moving around)
+# * 🔒 :lock: when dealing with security
+# * ⬆ :arrow_up: when upgrading dependencies
+# * ⬇ :arrow_down: when downgrading dependencies
+# * 👕 :shirt: when removing linter warnings
+# * 🎉 :tada: when committing the initial code to a repo
+# * 🔖 :bookmark: when tagging versions
+# * ✨ :sparkles: when introducing new features
+#
+# The seven rules of a great git commit message:
+# ----------------------------------------------
+#
+# Source: http://chris.beams.io/posts/git-commit/
+#
+# 1. Separate subject from body with a blank line
+# 2. Limit the subject line to 50 characters
+# 3. Capitalize the subject line
+# 4. Do not end the subject line with a period
+# 5. Use the imperative mood in the subject line
+# 6. Wrap the body at 72 characters
+# 7. Use the body to explain what and why vs. how
+#

@@ -1,0 +1,38 @@
+# Linux
+*~
+.Trash-*
+.directory
+.fuse_hidden*
+.nfs*
+
+# Emacs
+*.elc
+*.rel
+*_archive
+*_flymake.*
+.\#*
+.cask/
+.dir-locals.el
+.org-id-locations
+.projectile
+/.emacs.desktop
+/.emacs.desktop.lock
+/auto/
+/elpa/
+/eshell/history
+/eshell/lastdir
+/server/
+\#*\#
+auto-save-list
+dist/
+flycheck_*.el
+tramp
+
+# Vim
+.netrwhist
+Session.vim
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-v][a-z]
+[._]sw[a-p]
+tags
