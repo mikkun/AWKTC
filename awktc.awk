@@ -397,7 +397,7 @@ function has_collision(    x, y) {
 function rotate_left(    temp_array, x, y) {
     for (y = 0; y < PIECE_H; y++) {
         for (x = 0; x < PIECE_W; x++) {
-            temp_array[x, y] = curr_piece_data[-y + 3, x];
+            temp_array[x, y] = curr_piece_data[PIECE_H - y - 1, x];
         }
     }
     for (y = 0; y < PIECE_H; y++) {
@@ -410,7 +410,7 @@ function rotate_left(    temp_array, x, y) {
 function rotate_right(    temp_array, x, y) {
     for (y = 0; y < PIECE_H; y++) {
         for (x = 0; x < PIECE_W; x++) {
-            temp_array[x, y] = curr_piece_data[y, -x + 3];
+            temp_array[x, y] = curr_piece_data[y, PIECE_W - x - 1];
         }
     }
     for (y = 0; y < PIECE_H; y++) {
