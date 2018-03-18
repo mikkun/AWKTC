@@ -9,7 +9,7 @@
 # Usage : ./awktc.awk [width]
 
 BEGIN {
-    DEFAULT_INPUT_W = 10;
+    DEFAULT_INPUT_W = 12;
     DEFAULT_INPUT_H = 20;
     MIN_INPUT_W     = 4;
     MAX_INPUT_W     = 24;
