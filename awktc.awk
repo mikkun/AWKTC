@@ -1,7 +1,7 @@
 #!/usr/bin/awk -f
 
 # Name    : awktc.awk
-# Purpose : AWKTC is Workable Klutzy Tetris Clone
+# Purpose : AWKTC is Workable Klutzy Time-wasting Command
 #
 # Author  : KUSANAGI Mitsuhisa <mikkun@mbg.nifty.com>
 # Licence : MIT license
