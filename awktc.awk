@@ -231,7 +231,7 @@ function init_field(    x, y) {
 function level_up() {
     level += 1;
     level = level > MAX_LEVEL ? MAX_LEVEL : level;
-    item_interval = input_w + level - 1;
+    item_interval = input_w * (int((level - 1) / LEVEL_UNIT) + 1);
     next_level_exp = (PIECE_H + 1) * level;
     next_level_exp = next_level_exp > MAX_NEXT_LEVEL_EXP \
                    ? MAX_NEXT_LEVEL_EXP                  \
