@@ -1,20 +1,28 @@
 AWKTC
 =====
 
-![Screenshot (width: 10)](./md-images/screenshot-width10.png)
+![Screenshot (width: 12)](./md-images/screenshot-width12.png)
 
-**A**WKTC is **W**orkable **K**lutzy **T**etris **C**lone
+**A**WKTC is **W**orkable **K**lutzy **T**ime-wasting **C**ommand
 
 Description
 -----------
 
-**AWKTC** is a Tetris clone in AWK.
+**AWKTC** is a Tetris-like tile-matching puzzle game written in AWK.
 
 Requirements
 ------------
 
-* `gawk` or `awk`
+* `gawk` or `awk` (except `mawk`)
 * [GNU coreutils](https://www.gnu.org/software/coreutils/) or equivalent BSD command (`dd`, `echo`, `sleep`, `stty`)
+
+Supported Platforms
+-------------------
+
+**AWKTC** has been tested in the following platforms:
+
+* Debian GNU/Linux 9
+* FreeBSD 11.1-RELEASE
 
 How to Play
 -----------
@@ -36,10 +44,16 @@ $ ./awktc.awk
 * <kbd>p</kbd>: Pause
 * <kbd>q</kbd>: Quit
 
+### Beneficial Item ###
+
+* ![Black piece](./md-images/special_piece.png) - __Special Piece__ - Destroys horizontal lines even if they have gaps of blocks.
+
 Changing the Playfield Width
 ----------------------------
 
 You can change the playfield width between 4 and 24 cells.
+
+By default, the playfield width is 12 cells.
 
 ### Example Minimum Width ###
 

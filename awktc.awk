@@ -1,7 +1,7 @@
 #!/usr/bin/awk -f
 
 # Name    : awktc.awk
-# Purpose : AWKTC is Workable Klutzy Tetris Clone
+# Purpose : AWKTC is Workable Klutzy Time-wasting Command
 #
 # Author  : KUSANAGI Mitsuhisa <mikkun@mbg.nifty.com>
 # Licence : MIT license
@@ -9,7 +9,7 @@
 # Usage : ./awktc.awk [width]
 
 BEGIN {
-    DEFAULT_INPUT_W = 10;
+    DEFAULT_INPUT_W = 12;
     DEFAULT_INPUT_H = 20;
     MIN_INPUT_W     = 4;
     MAX_INPUT_W     = 24;
@@ -33,14 +33,15 @@ BEGIN {
 
     PIECE_W = 4;
     PIECE_H = 4;
-    PIECE_DATA_LEN = 7;
-    PIECE_DATA[0] = "0000110001100000"; # Z: Red
-    PIECE_DATA[1] = "0000002202200000"; # S: Green
-    PIECE_DATA[2] = "0000003033300000"; # L: Yellow
-    PIECE_DATA[3] = "0000040004440000"; # J: Blue
-    PIECE_DATA[4] = "0000050055500000"; # T: Magenta
-    PIECE_DATA[5] = "0000666600000000"; # I: Cyan
+    PIECE_DATA_LEN = 8;
+    PIECE_DATA[0] = "0000010001110000"; # J: Red
+    PIECE_DATA[1] = "0000002022200000"; # L: Green
+    PIECE_DATA[2] = "0000003303300000"; # S: Yellow
+    PIECE_DATA[3] = "0000440004400000"; # Z: Blue
+    PIECE_DATA[4] = "0000555500000000"; # I: Magenta
+    PIECE_DATA[5] = "0000060066600000"; # T: Cyan
     PIECE_DATA[6] = "0000077007700000"; # O: White
+    PIECE_DATA[7] = "0000088000000000"; # Special piece
 
     UI_TEXTS_LEN = 22;
     UI_TEXTS[0]  =        "                      ";
@@ -93,16 +94,18 @@ BEGIN {
     close(stty_cmd);
     system("stty raw -echo");
 
-    init_field();
-    get_next_piece();
-    get_curr_piece();
-    get_next_piece();
-
+    item_interval = input_w;
     level = 0;
     lines = 0;
     score = 0;
     skip_limit = INITIAL_SKIP;
     level_up();
+
+    piece_count = 1;
+    init_field();
+    get_next_piece();
+    get_curr_piece();
+    get_next_piece();
 
     is_paused = 0;
     skip_count = 0;
@@ -228,6 +231,7 @@ function init_field(    x, y) {
 function level_up() {
     level += 1;
     level = level > MAX_LEVEL ? MAX_LEVEL : level;
+    item_interval = input_w * (int((level - 1) / LEVEL_UNIT) + 1);
     next_level_exp = (PIECE_H + 1) * level;
     next_level_exp = next_level_exp > MAX_NEXT_LEVEL_EXP \
                    ? MAX_NEXT_LEVEL_EXP                  \
@@ -238,6 +242,7 @@ function level_up() {
 }
 
 function _delete_line(target_y,    x, y) {
+    target_y = target_y < 1 ? 1 : target_y;
     for (y = target_y; y > PIECE_H - 1; y--) {
         for (x = 1; x < field_w - 1; x++) {
             field_data[x, y] = field_data[x, y - 1];
@@ -254,6 +259,10 @@ function update_field(    deleted_lines, is_line_created, i, x, y) {
         for (y = field_h - 2; y > PIECE_H - 1; y--) {
             is_line_created = 1;
             for (x = 1; x < field_w - 1; x++) {
+                if (field_data[x, y] == 8) {
+                    is_line_created = 1;
+                    break;
+                }
                 is_line_created *= field_data[x, y];
             }
             if (is_line_created) {
@@ -289,6 +298,9 @@ function _draw_next_piece(row, column,    x, y) {
             if (next_piece_data[x, y] == 0) {
                 printf("\033[7m  \033[0m");
             }
+            else if (next_piece_data[x, y] == 8) {
+                printf("\033[31;40m[]\033[0m");
+            }
             else {
                 printf("\033[30;4%dm[]\033[0m", next_piece_data[x, y]);
             }
@@ -309,6 +321,9 @@ function draw_field(    x, y) {
             if (field_data[x, y] == 0) {
                 printf("\033[7m .\033[0m");
             }
+            else if (field_data[x, y] == 8) {
+                printf("\033[31;40m[]\033[0m");
+            }
             else if (field_data[x, y] == 9) {
                 printf("  ");
             }
@@ -327,7 +342,14 @@ function print_message(message, row,    column) {
 }
 
 function get_next_piece(    data_num, x, y) {
-    data_num = int(rand() * PIECE_DATA_LEN);
+    if (piece_count == item_interval) {
+        data_num = PIECE_DATA_LEN - 1;
+        piece_count = 1;
+    }
+    else {
+        data_num = int(rand() * (PIECE_DATA_LEN - 1));
+        piece_count += 1;
+    }
     for (y = 0; y < PIECE_H; y++) {
         for (x = 0; x < PIECE_W; x++) {
             next_piece_data[x, y] \
