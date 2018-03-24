@@ -48,12 +48,14 @@ $ ./awktc.awk
 
 * ![Black piece](./md-images/special_piece.png) - __Special Piece__ - Destroys horizontal lines even if they have gaps of blocks.
 
+### All Clear Bonus ###
+
+If you clear all the pieces, then you will get an "All Clear Bonus".
+
 Changing the Playfield Width
 ----------------------------
 
-You can change the playfield width between 4 and 24 cells.
-
-By default, the playfield width is 12 cells.
+You can change the playfield width between 4 and 24 cells. By default, the playfield width is 12 cells.
 
 ### Example Minimum Width ###
 
