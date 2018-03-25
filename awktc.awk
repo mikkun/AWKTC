@@ -81,9 +81,9 @@ BEGIN {
     input_w = input_w < MIN_INPUT_W ? MIN_INPUT_W : input_w;
     input_w = input_w > MAX_INPUT_W ? MAX_INPUT_W : input_w;
     field_w = input_w         + BORDER_W;
-    field_h = DEFAULT_INPUT_H + BORDER_H;
+    field_h = DEFAULT_INPUT_H + BORDER_H + PIECE_H;
     initial_x = int((field_w - PIECE_W) / 2);
-    initial_y = 0;
+    initial_y = PIECE_H;
 
     srand();
     printf("\033[?25l");
@@ -215,7 +215,7 @@ function init_field(    x, y) {
         for (x = 0; x < field_w; x++) {
             if ( x == 0           \
               || x == field_w - 1 \
-              || y == 0           \
+              || y <= PIECE_H     \
               || y == field_h - 1 ) {
                 field_data[x, y] = 9;
             }
@@ -224,8 +224,10 @@ function init_field(    x, y) {
             }
         }
     }
-    for (x = initial_x; x < initial_x + PIECE_W; x++) {
-        field_data[x, 0] = 0;
+    for (y = 1; y <= PIECE_H; y++) {
+        for (x = initial_x; x < initial_x + PIECE_W; x++) {
+            field_data[x, y] = 0;
+        }
     }
 }
 
@@ -250,13 +252,13 @@ function _delete_line(target_y,    x, y) {
         }
     }
     for (x = 1; x < field_w - 1; x++) {
-        field_data[x, PIECE_H] = 0;
+        field_data[x, PIECE_H + 1] = 0;
     }
 }
 
 function _is_all_clear(    x) {
     for (x = 1; x < field_w - 1; x++) {
-        if (field_data[x, field_h - 2] != 0) {
+        if (field_data[x, field_h - BORDER_H] != 0) {
             return 0;
         }
     }
@@ -266,7 +268,7 @@ function _is_all_clear(    x) {
 function update_field(    deleted_lines, is_line_created, i, x, y) {
     deleted_lines = 0;
     for (i = 0; i < PIECE_H; i++) {
-        for (y = field_h - 2; y > PIECE_H - 1; y--) {
+        for (y = field_h - BORDER_H; y > PIECE_H; y--) {
             is_line_created = 1;
             for (x = 1; x < field_w - 1; x++) {
                 if (field_data[x, y] == 8) {
@@ -322,10 +324,10 @@ function _draw_next_piece(row, column,    x, y) {
 }
 
 function draw_field(    x, y) {
-    for (y = 0; y < field_h; y++) {
-        printf("\033[%d;1H", y + 1);
-        if (y < UI_TEXTS_LEN) {
-            printf("%s", UI_TEXTS[y]);
+    for (y = PIECE_H; y < field_h; y++) {
+        printf("\033[%d;1H", y - PIECE_H + 1);
+        if (y - PIECE_H < UI_TEXTS_LEN) {
+            printf("%s", UI_TEXTS[y - PIECE_H]);
         }
         else {
             printf("                      ");
