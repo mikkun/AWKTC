@@ -245,8 +245,7 @@ function level_up() {
 }
 
 function _delete_line(target_y,    x, y) {
-    target_y = target_y < 1 ? 1 : target_y;
-    for (y = target_y; y > PIECE_H - 1; y--) {
+    for (y = target_y; y > PIECE_H; y--) {
         for (x = 1; x < field_w - 1; x++) {
             field_data[x, y] = field_data[x, y - 1];
         }
