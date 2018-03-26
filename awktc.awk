@@ -206,7 +206,7 @@ END {
     close(READING_KEY_CMD);
     system("stty " prev_term_settings);
 
-    printf("\033[%d;1H", field_h + 1);
+    printf("\033[%d;1H", field_h - PIECE_H + 1);
     printf("\033[?25h");
 }
 
