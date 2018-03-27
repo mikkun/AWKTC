@@ -50,7 +50,7 @@ $ ./awktc.awk
 
 ### All Clear Bonus ###
 
-If you clear all the pieces, then you will get an "All Clear Bonus".
+If you clear all the blocks, then you will get an "All Clear Bonus".
 
 Changing the Playfield Width
 ----------------------------
