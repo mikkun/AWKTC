@@ -245,13 +245,15 @@ function level_up() {
 }
 
 function _delete_line(target_y,    x, y) {
-    for (y = target_y; y > PIECE_H; y--) {
+    for (y = target_y; y > PIECE_H - 1; y--) {
         for (x = 1; x < field_w - 1; x++) {
             field_data[x, y] = field_data[x, y - 1];
         }
     }
     for (x = 1; x < field_w - 1; x++) {
-        field_data[x, PIECE_H + 1] = 0;
+        if (field_data[x, PIECE_H + 1] == 9) {
+            field_data[x, PIECE_H + 1] = 0;
+        }
     }
 }
 
