@@ -4,7 +4,7 @@
 # Purpose : AWKTC is Workable Klutzy Time-wasting Command
 #
 # Author  : KUSANAGI Mitsuhisa <mikkun@mbg.nifty.com>
-# Licence : MIT license
+# License : MIT License
 
 # Usage : ./awktc.awk [width]
 
