@@ -21,15 +21,15 @@ Supported Platforms
 
 **AWKTC** has been tested in the following platforms:
 
-* Debian GNU/Linux 9
-* FreeBSD 11.1-RELEASE
+* Debian GNU/Linux 10
+* FreeBSD 12.1-RELEASE
 
 How to Play
 -----------
 
 ### Running the Game ###
 
-``` shellsession
+```console
 $ cd /path/to/AWKTC
 $ ./awktc.awk
 ```
@@ -59,7 +59,7 @@ You can change the playfield width between 4 and 24 cells. By default, the playf
 
 ### Example Minimum Width ###
 
-``` shellsession
+```console
 $ ./awktc.awk 4
 ```
 
@@ -67,7 +67,7 @@ $ ./awktc.awk 4
 
 ### Example Maximum Width ###
 
-``` shellsession
+```console
 $ ./awktc.awk 24
 ```
 
@@ -76,7 +76,7 @@ $ ./awktc.awk 24
 Installation
 ------------
 
-``` shellsession
+```console
 $ git clone https://github.com/mikkun/AWKTC.git
 ```
 
@@ -88,4 +88,4 @@ Author
 License
 -------
 
-[MIT](./LICENSE)
+[MIT License](./LICENSE)
