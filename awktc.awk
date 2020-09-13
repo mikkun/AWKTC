@@ -20,7 +20,7 @@ BEGIN {
     MAX_LEVEL = 99;
     MAX_LINES = 999999;
     MAX_SCORE = 999999;
-    SCORE_UNIT = 100;
+    SCORE_UNIT = 10;
 
     DELAY_SEC = 0.1;
     READING_KEY_CMD = "((while :; do echo ''; sleep " DELAY_SEC "; done) &" \
@@ -266,7 +266,7 @@ function _is_all_clear(    x) {
     return 1;
 }
 
-function update_field(    deleted_lines, is_line_created, i, x, y) {
+function update_field(    deleted_lines, is_line_created, points, i, x, y) {
     deleted_lines = 0;
     for (i = 0; i < PIECE_H; i++) {
         for (y = field_h - BORDER_H; y > PIECE_H; y--) {
@@ -285,16 +285,12 @@ function update_field(    deleted_lines, is_line_created, i, x, y) {
         }
     }
     if (deleted_lines > 0) {
+        points = input_w * deleted_lines ^ 2 * SCORE_UNIT * level;
         curr_level_exp += deleted_lines * 2                  \
                               + int(deleted_lines / PIECE_H) \
                               - 1;
         lines += deleted_lines;
-        score += (deleted_lines * 2                  \
-                      + int(deleted_lines / PIECE_H) \
-                      - 1) * SCORE_UNIT * level;
-        if (_is_all_clear()) {
-            score += SCORE_UNIT * 10 * (field_w - BORDER_W);
-        }
+        score += _is_all_clear() ? points * 10 : points;
         if (curr_level_exp >= next_level_exp) {
             level_up();
         }
