@@ -22,11 +22,6 @@ BEGIN {
     MAX_SCORE = 999999
     SCORE_UNIT = 10
 
-    DELAY_SEC = 0.1
-    READING_KEY_CMD = "((while :; do echo ''; sleep " DELAY_SEC "; done) &" \
-                      " (while :; do echo $(dd bs=1 count=1); done)) "      \
-                      "2> /dev/null"
-
     LEVEL_UNIT = 2
     INITIAL_SKIP = 10
     MIN_SKIP     = 2
@@ -67,6 +62,12 @@ BEGIN {
     UI_TEXTS[19] = "  \033[7m  Q : QUIT          \033[0m"
     UI_TEXTS[20] = "  \033[7m                    \033[0m"
     UI_TEXTS[21] =        "                      "
+
+    DELAY_SEC = 0.1
+    READING_KEY_CMD \
+        = "((while :; do echo ''; sleep " DELAY_SEC "; done) &"       \
+          " (while :; do echo $(dd bs=1 count=1 conv=lcase); done)) " \
+          "2> /dev/null"
 
     error_message = ""
     if (system("sleep 0.1 2> /dev/null")) {
@@ -115,31 +116,26 @@ BEGIN {
         READING_KEY_CMD | getline key
 
         if (is_paused) {
-            if (key == "Q" || key == "q") {
-                exit 0
-            }
-            if (key == "P" || key == "p") {
-                is_paused = 0
-            }
+            if (key == "q") { exit 0        }
+            if (key == "p") { is_paused = 0 }
             continue
         }
-
-        if (key == "Q" || key == "q") {
-            exit 0
-        }
-        if (key == "P" || key == "p") {
+        if (key == "q") { exit 0 }
+        if (key == "p") {
             is_paused = 1
             print_message(" PAUSED ", 9)
             continue
         }
 
-        if (key == "A" || key == "a") {
+        if (key == "a") {
             curr_piece_x -= 1
-            if (has_collision()) {
-                curr_piece_x += 1
-            }
+            if (has_collision()) { curr_piece_x += 1 }
         }
-        if (key == "S" || key == "s") {
+        if (key == "d") {
+            curr_piece_x += 1
+            if (has_collision()) { curr_piece_x -= 1 }
+        }
+        if (key == "s") {
             curr_piece_y += 1
             score += 1
             if (has_collision()) {
@@ -147,23 +143,14 @@ BEGIN {
                 score -= 1
             }
         }
-        if (key == "D" || key == "d") {
-            curr_piece_x += 1
-            if (has_collision()) {
-                curr_piece_x -= 1
-            }
-        }
-        if (key == "K" || key == "k") {
+
+        if (key == "k") {
             rotate_left()
-            if (has_collision()) {
-                rotate_right()
-            }
+            if (has_collision()) { rotate_right() }
         }
-        if (key == "L" || key == "l") {
+        if (key == "l") {
             rotate_right()
-            if (has_collision()) {
-                rotate_left()
-            }
+            if (has_collision()) { rotate_left() }
         }
 
         if (key == "" && skip_count >= skip_limit) {
@@ -181,9 +168,7 @@ BEGIN {
             skip_count += 1
         }
 
-        if (has_collision()) {
-            exit 0
-        }
+        if (has_collision()) { exit 0 }
 
         set_curr_piece()
         draw_field()
