@@ -282,60 +282,64 @@ function update_field(    deleted_lines, is_line_created, points, i, x, y) {
     }
 }
 
-function _print_progression() {
-    printf("\033[3;15H\033[7m%6d\033[0m", score)
-    printf("\033[4;15H\033[7m%6d\033[0m", lines)
-    printf("\033[5;19H\033[7m%2d\033[0m", level)
+function _build_info() {
+    return sprintf("\033[3;15H\033[7m%6d\033[0m", score) \
+           sprintf("\033[4;15H\033[7m%6d\033[0m", lines) \
+           sprintf("\033[5;19H\033[7m%2d\033[0m", level)
 }
 
-function _draw_next_piece(row, column,    x, y) {
+function _build_next_piece(row, column,    pixmap, x, y) {
     for (y = 0; y < PIECE_H; y++) {
-        printf("\033[%d;%dH", row + y, column)
+        pixmap = pixmap sprintf("\033[%d;%dH", row + y, column)
         for (x = 0; x < PIECE_W; x++) {
             if (next_piece_data[x, y] == 0) {
-                printf("\033[7m  \033[0m")
+                pixmap = pixmap sprintf("\033[7m  \033[0m")
             }
             else if (next_piece_data[x, y] == 8) {
-                printf("\033[31;40m[]\033[0m")
+                pixmap = pixmap sprintf("\033[31;40m[]\033[0m")
             }
             else {
-                printf("\033[30;4%dm[]\033[0m", next_piece_data[x, y])
+                pixmap = pixmap sprintf("\033[30;4%dm[]\033[0m", \
+                                        next_piece_data[x, y])
             }
         }
     }
+    return pixmap
 }
 
-function draw_field(    x, y) {
+function draw_field(    buffer, x, y) {
     for (y = PIECE_H; y < field_h; y++) {
-        printf("\033[%d;1H", y - PIECE_H + 1)
+        buffer = buffer sprintf("\033[%d;1H", y - PIECE_H + 1)
         if (y - PIECE_H < UI_TEXTS_LEN) {
-            printf("%s", UI_TEXTS[y - PIECE_H])
+            buffer = buffer sprintf("%s", UI_TEXTS[y - PIECE_H])
         }
         else {
-            printf("                      ")
+            buffer = buffer sprintf("                      ")
         }
         for (x = 0; x < field_w; x++) {
             if (field_data[x, y] == 0) {
-                printf("\033[7m .\033[0m")
+                buffer = buffer sprintf("\033[7m .\033[0m")
             }
             else if (field_data[x, y] == 8) {
-                printf("\033[31;40m[]\033[0m")
+                buffer = buffer sprintf("\033[31;40m[]\033[0m")
             }
             else if (field_data[x, y] == 9) {
-                printf("  ")
+                buffer = buffer sprintf("  ")
             }
             else {
-                printf("\033[30;4%dm[]\033[0m", field_data[x, y])
+                buffer = buffer sprintf("\033[30;4%dm[]\033[0m", \
+                                        field_data[x, y])
             }
         }
     }
-    _print_progression()
-    _draw_next_piece(8, 13)
+    printf buffer _build_info() _build_next_piece(8, 13)
+    system("")
 }
 
 function print_message(message, row,    column) {
     column = 23 + int((field_w * 2 - length(message)) / 2)
     printf("\033[%d;%dH%s", row, column, message)
+    system("")
 }
 
 function get_next_piece(    data_num, x, y) {
