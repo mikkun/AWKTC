@@ -1,0 +1,14 @@
+{
+    // MD007/ul-indent Unordered list indentation
+    "ul-indent": {
+        "indent": 4
+    },
+
+    // MD013/line-length Line length
+    "line_length": false,
+
+    // MD033/no-inline-html Inline HTML
+    "no-inline-html": {
+        "allowed_elements": ["h1", "img", "kbd"]
+    }
+}
