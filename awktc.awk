@@ -116,41 +116,45 @@ BEGIN {
         READING_KEY_CMD | getline key
 
         if (is_paused) {
-            if (key == "q") { exit 0        }
-            if (key == "p") { is_paused = 0 }
+            if (key == "q")
+                exit 0
+            else if (key == "p")
+                is_pause = 0
             continue
         }
-        if (key == "q") { exit 0 }
-        if (key == "p") {
-            is_paused = 1
-            print_message(" PAUSED ", 9)
-            continue
-        }
-
-        if (key == "a") {
-            curr_piece_x -= 1
-            if (has_collision()) { curr_piece_x += 1 }
-        }
-        if (key == "d") {
-            curr_piece_x += 1
-            if (has_collision()) { curr_piece_x -= 1 }
-        }
-        if (key == "s") {
-            curr_piece_y += 1
-            score += 1
-            if (has_collision()) {
-                curr_piece_y -= 1
-                score -= 1
-            }
-        }
-
-        if (key == "k") {
-            rotate_left()
-            if (has_collision()) { rotate_right() }
-        }
-        if (key == "l") {
-            rotate_right()
-            if (has_collision()) { rotate_left() }
+        switch(key) {
+            case "q":
+                exit 0
+                break
+            case "p":
+                is_paused = 1
+                print_message(" PAUSED ", 9)
+                continue
+                break 
+            case "a":
+                curr_piece_x -= 1
+                if (has_collision()) { curr_piece_x += 1 }
+                break
+            case "d":
+                curr_piece_x += 1
+                if (has_collision()) { curr_piece_x -= 1 }
+                break
+            case "s":
+                curr_piece_y += 1
+                score += 1
+                if (has_collision()) {
+                    curr_piece_y -= 1
+                    score -= 1
+                }
+                break
+            case "k":
+                rotate_left()
+                if (has_collision()) { rotate_right() }
+                break
+            case "l":
+                rotate_right()
+                if (has_collision()) { rotate_left() }
+                break
         }
 
         if (key == "" && skip_count >= skip_limit) {
