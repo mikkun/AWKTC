@@ -119,7 +119,7 @@ BEGIN {
             if (key == "q")
                 exit 0
             else if (key == "p")
-                is_pause = 0
+                is_paused = 0
             continue
         }
         switch(key) {
