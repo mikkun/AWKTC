@@ -116,7 +116,7 @@ BEGIN {
         READING_KEY_CMD | getline key
 
         if (is_paused) {
-            if (key == "q") { exit 0        }
+            if      (key == "q") { exit 0        }
             else if (key == "p") { is_paused = 0 }
             continue
         }
