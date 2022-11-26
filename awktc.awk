@@ -116,26 +116,25 @@ BEGIN {
         READING_KEY_CMD | getline key
 
         if (is_paused) {
-            if (key == "q") { exit 0        }
-            if (key == "p") { is_paused = 0 }
+            if      (key == "q") { exit 0        }
+            else if (key == "p") { is_paused = 0 }
             continue
         }
-        if (key == "q") { exit 0 }
-        if (key == "p") {
+        else if (key == "q") { exit 0 }
+        else if (key == "p") {
             is_paused = 1
             print_message(" PAUSED ", 9)
             continue
         }
-
-        if (key == "a") {
+        else if (key == "a") {
             curr_piece_x -= 1
             if (has_collision()) { curr_piece_x += 1 }
         }
-        if (key == "d") {
+        else if (key == "d") {
             curr_piece_x += 1
             if (has_collision()) { curr_piece_x -= 1 }
         }
-        if (key == "s") {
+        else if (key == "s") {
             curr_piece_y += 1
             score += 1
             if (has_collision()) {
@@ -143,16 +142,14 @@ BEGIN {
                 score -= 1
             }
         }
-
-        if (key == "k") {
+        else if (key == "k") {
             rotate_left()
             if (has_collision()) { rotate_right() }
         }
-        if (key == "l") {
+        else if (key == "l") {
             rotate_right()
             if (has_collision()) { rotate_left() }
         }
-
         if (key == "" && skip_count >= skip_limit) {
             curr_piece_y += 1
             if (has_collision()) {
