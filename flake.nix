@@ -6,7 +6,7 @@
 
   outputs = { self, nixpkgs, flake-utils }:
 
-  flake-utils.lib.eachSystem flake-utils.lib.allSystems (system: let 
+  with flake-utils.lib; eachSystem allSystems (system: let 
     pkgs = import nixpkgs { inherit system; };
     version = "1.2.1";
   in  {
