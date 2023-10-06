@@ -14,13 +14,19 @@
 
 ## Requirements
 
-- `gawk` or `nawk`
+- `gawk`, `nawk`, or `goawk`
 - [GNU coreutils](https://www.gnu.org/software/coreutils/) or equivalent BSD command (`dd`, `echo`, `sleep`, `stty`)
 
 ## Installation
 
 ```shell
 git clone https://github.com/mikkun/AWKTC.git
+```
+
+### Run Without Installing (For Nix/NixOS)
+
+```shell
+nix run github:mikkun/AWKTC
 ```
 
 ## How to Play
