@@ -1,4 +1,7 @@
 {
+  description =
+    "AWKTC is a Tetris-like tile-matching puzzle game written in AWK.";
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
