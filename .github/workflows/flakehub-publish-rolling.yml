@@ -1,4 +1,4 @@
-name: "Publish every Git push to main to FlakeHub"
+name: "Publish every Git push to master to FlakeHub"
 on:
   push:
     branches:
@@ -17,4 +17,3 @@ jobs:
           name: "mikkun/AWKTC"
           rolling: true
           visibility: "public"
-
