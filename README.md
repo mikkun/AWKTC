@@ -1,10 +1,11 @@
 # AWKTC
 
+[![FlakeHub](https://img.shields.io/endpoint?url=https://flakehub.com/f/mikkun/AWKTC/badge)](https://flakehub.com/flake/mikkun/AWKTC)
 ![GitHub top language](https://img.shields.io/github/languages/top/mikkun/AWKTC)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/mikkun/AWKTC)
 ![GitHub license](https://img.shields.io/github/license/mikkun/AWKTC)
 
-> :joystick: **A**WKTC is **W**orkable **K**lutzy **T**ime-wasting **C**ommand
+> 🎮 **A**WKTC is **W**orkable **K**lutzy **T**ime-wasting **C**ommand
 
 ## Description
 
