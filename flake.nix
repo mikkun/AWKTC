@@ -8,8 +8,15 @@
   };
 
   outputs = { self, nixpkgs, flake-utils }:
-    with flake-utils.lib;
-    eachSystem allSystems (system:
+    let
+      supportedSystems = [
+        "aarch64-darwin"
+        "aarch64-linux"
+        "i686-linux"
+        "x86_64-darwin"
+        "x86_64-linux"
+      ];
+    in flake-utils.lib.eachSystem supportedSystems (system:
       let
         pkgs = import nixpkgs { inherit system; };
         version = "1.2.1";
